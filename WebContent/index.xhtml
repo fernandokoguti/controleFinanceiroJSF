@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Página Inicial</title>
+</h:head>
+<h:body>
+	<h2>
+		Bem vindo <h:outputText value="#{usuario.nome}" />
+	</h2>
+	<h:form>
+	Mes:
+	<p:inputText id="mes" value="#{movimentacaoBean.movimentacao.mes}" />
+	Ano:
+	<p:inputText id="ano" value="#{movimentacaoBean.movimentacao.ano}" />
+	Valor:
+	<p:inputText id="valor" value="#{movimentacaoBean.movimentacao.valor}" />
+	Tipo Movimentação:
+	<h:selectOneMenu id="tipo" value="#{movimentacaoBean.movimentacao.tipoMovimentacao}" converter="tipoMovimentacaoConverter">
+			<f:selectItem itemLabel="Selecione o tipo..." />
+			<f:selectItems value="#{tipoMovimentacaoBean.pegarTodos()}" var="tipos" itemValue="#{tipos}" itemLabel="#{tipos.nome}" />
+		</h:selectOneMenu>
+		<h:outputLabel value="" />
+		<h:commandButton value="Inserir" action="#{movimentacaoBean.adicionar()}" />
+
+		<p:fieldset legend="Movimentações Cadastradas">
+			<p:dataTable id="tabelaMovimentacoes"
+				value="#{movimentacaoBean.listar()}" var="movimentacoes"
+				paginator="true" rows="10">
+				<p:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{movimentacoes.id}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{movimentacoes.tipoMovimentacao.nome}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Valor</f:facet>
+					<h:outputText value="#{movimentacoes.valor}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Básica?</f:facet>
+					<h:outputText value="#{movimentacoes.tipoMovimentacao.msgBasica()}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Ações</f:facet>
+					<p:commandButton id="deletar" value="Deletar"
+						action="#{movimentacaoBean.deletar(movimentacoes.id)}" />
+				</p:column>
+
+			</p:dataTable>
+		</p:fieldset>
+	</h:form>
+</h:body>
+</html>

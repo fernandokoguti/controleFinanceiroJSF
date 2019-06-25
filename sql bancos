@@ -1,0 +1,25 @@
+create table usuario(
+    id serial primary key,
+    nome varchar(200),
+    login varchar(50),
+    senha varchar(50),
+    nomebase varchar(50),
+    tipousuario integer
+);
+------------------------
+create table tipomovimentacao(
+    id serial primary key,
+    nome varchar(200),
+    entrada integer, --0 entrada, 1 saida
+    basica integer --0 basico, 1 desnecessario
+);
+
+create table movimentacao(
+    id bigserial primary key,
+    fk_tipo_id int not null,
+    mes int,
+    ano int,
+    valor numeric(10,2),
+    constraint fk_mov_tipo foreign key (fk_tipo_id) references tipomovimentacao (id)
+);
+

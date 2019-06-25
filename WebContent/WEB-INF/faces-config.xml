@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    
+    <converter>
+     <description>Configurando converter</description>
+     <converter-id>tipoMovimentacaoConverter</converter-id>
+     <converter-class>managedBean.TipoMovimentacaoConverter</converter-class>
+	</converter>
+    
+    <managed-bean>
+	  <managed-bean-name>movimentacaoBean</managed-bean-name>
+	  <managed-bean-class>managedBean.MovimentacaoBean</managed-bean-class>
+	  <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+	  <managed-bean-name>tipoMovimentacaoBean</managed-bean-name>
+	  <managed-bean-class>managedBean.TipoMovimentacaoBean</managed-bean-class>
+	  <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+	  <managed-bean-name>usuarioBean</managed-bean-name>
+	  <managed-bean-class>managedBean.UsuarioBean</managed-bean-class>
+	  <managed-bean-scope>request</managed-bean-scope>	  
+	</managed-bean>
+
+</faces-config>
