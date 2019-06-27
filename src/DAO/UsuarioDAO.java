@@ -6,17 +6,13 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import conexao.ConexaoAdm;
+import conexao.Conexao;
 import modelo.Usuario;
 	  
 	public class UsuarioDAO {
 		private Usuario u;
-		private Session sessao = ConexaoAdm.getSessionFactory().openSession();
+		private Session sessao = Conexao.getSessionFactory().openSession();
 		
-//	    private EntityManagerFactory factory = Persistence
-//	    		.createEntityManagerFactory("usuario");
-//	    private EntityManager em = factory.
-//    		createEntityManager();
 	 
 	public Usuario buscarLogin(String login, String senha) {
 		try {
@@ -29,6 +25,12 @@ import modelo.Usuario;
 				return null;
 			}
 		}
+	
+	public List<Usuario> buscarTodos() {
+		Query<Usuario> q = sessao.createQuery("from Usuario");
+		List<Usuario> usuarios = q.getResultList();
+		return usuarios;
+	}
 	
 	public Usuario buscarPorId(int id) {
 		try {
@@ -54,20 +56,20 @@ import modelo.Usuario;
 	    }
 	  
 	  public List<Usuario> pegarTodos(){
-			Session sessao = ConexaoAdm.getSessionFactory().openSession();
+			Session sessao = Conexao.getSessionFactory().openSession();
 			Query<Usuario> query = sessao.createQuery("FROM Usuario");
 			return query.list();
 		}
 		
 		public Usuario pegarPorIdNamed(int id){
-			Session sessao = ConexaoAdm.getSessionFactory().openSession();
+			Session sessao = Conexao.getSessionFactory().openSession();
 			Query<Usuario> query = sessao.getNamedQuery("pegarPorId").setParameter("id", id);
 			query.setParameter("id", id);
 			return query.uniqueResult();
 		}
 		
 		public List<Usuario> pegarTodosCriteria(){
-			Session sessao = ConexaoAdm.getSessionFactory().openSession();
+			Session sessao = Conexao.getSessionFactory().openSession();
 			Criteria crit = sessao.createCriteria(Usuario.class);
 			return crit.list();
 		}

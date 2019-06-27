@@ -5,13 +5,13 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class ConexaoAdm {
+public class Conexao {
 	
 	private static final SessionFactory sessionFactory = construirFabrica();
 	
 	private static SessionFactory construirFabrica() {
 		try {
-		final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure("/configuracao/hibernate.cfadm.xml").build();
+		final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure("/configuracao/hibernate.cf.xml").build();
 		
 		return new MetadataSources(registro).buildMetadata().buildSessionFactory();	
 	}catch(Exception e){

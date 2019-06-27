@@ -10,12 +10,14 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import conexao.ConexaoUsuario;
+import managedBean.Sessao;
 import modelo.Movimentacao;
 	  
 	public class MovimentacaoDAO {
 		private Movimentacao m;
 		private List<Movimentacao> movimentacoes;
-		private Session sessao = ConexaoUsuario.getSessionFactory().openSession();;
+		private Sessao session = new Sessao();
+		private Session sessao = ConexaoUsuario.getSessionFactory(session.getUsuarioLogado().getNomeBase()).openSession();;
 
 	public List<Movimentacao> buscarTodas() {
 		try {

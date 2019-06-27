@@ -12,10 +12,10 @@
                 <h:panelGrid cellspacing="10">
                     Digite seu usuário e senha para ter acesso ao sistema:                    
                     <p:messages id="messagesLogin"/>
-                    <p:inputText id="usuario" placeholder="Usuário" value="#{acesso.login}" size="40" required="true" requiredMessage="Campo Login é obrigatório"/>
-                    <p:password id="senha" placeholder="Senha" value="#{acesso.senha}" size="40" required="true" requiredMessage="Campo Senha é obrigatório"/>
-                    <p:commandButton value="Acessar" action="#{acesso.logar()}" update="mensagem"/>
-                    <h:outputText id="mensagem" value="#{acesso.login}"/>
+                    <p:inputText id="usuario" placeholder="Usuário" value="#{sessao.login}" size="40" required="true" requiredMessage="Campo Login é obrigatório"/>
+                    <p:password id="senha" placeholder="Senha" value="#{sessao.senha}" size="40" required="true" requiredMessage="Campo Senha é obrigatório"/>
+                    <p:commandButton value="Acessar" action="#{sessao.logar()}" update="mensagem"/>
+                    <h:outputText id="mensagem" value="#{sessao.login}"/>
                 </h:panelGrid>
             </h:form>
         </p:dialog>

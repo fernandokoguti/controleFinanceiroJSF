@@ -105,10 +105,17 @@ public class TipoMovimentacao implements Serializable {
     }
     
     public String msgBasica() {
-		if(this.getBasica() == 1) {
+		if(this.getBasica() == 0) {
 			return "Básica";
 		}else
-		return "Não básica";
+		return "Desnecessária";
 	}
-
+    
+    public String msgEntrada() {
+		if(this.getEntrada() == 0) {
+			return "Entrada";
+		}else
+		return "Saída";
+	}
+    
 }

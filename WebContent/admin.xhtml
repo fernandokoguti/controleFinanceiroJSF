@@ -3,11 +3,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Página Inicial</title>
+	<title>Página do Admin</title>
 </h:head>
 <h:body>
 	<h2>
-		Bem vindo
+		Bem vindo Senhor Super 
 		<h:outputText value="#{usuario.nome}" />
 		<p:commandButton value="Sair"
 				actionListener="sessao.logoff()" type="button" />
@@ -55,7 +55,7 @@
 		</h:panelGrid>
 
 		<p:fieldset legend="Movimentações Cadastradas">
-			<p:dataTable id="tabelaMovimentacoes" value="#{movimentacaoBean.listar()}" var="movimentacoes" paginator="true" rows="10">
+			<p:dataTable id="tabelaMovimentacoes" value="#{adminBean.pegarTodos()}" var="movimentacoes" paginator="true" rows="10">
 				<p:column>
 					<f:facet name="header">ID</f:facet>
 					<h:outputText value="#{movimentacoes.id}" />
@@ -92,6 +92,11 @@
 					<f:facet name="header">Entrada?</f:facet>
 					<h:outputText
 						value="#{movimentacoes.tipoMovimentacao.msgEntrada()}" />
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Usuário</f:facet>
+					<h:outputText value="#{movimentacoes.nomeUsuario()}" />
 				</p:column>
 
 				<p:column>

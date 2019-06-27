@@ -21,6 +21,7 @@
 		</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
-		<mapping class="modelo.Usuario"/>
+		<mapping class="modelo.Movimentacao"/>
+		<mapping class="modelo.TipoMovimentacao"/>
 	</session-factory>
 </hibernate-configuration>
