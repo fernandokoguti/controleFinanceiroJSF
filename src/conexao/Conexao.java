@@ -7,9 +7,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class Conexao {
 	
-	private static final SessionFactory sessionFactory = construirFabrica();
+	private final SessionFactory sessionFactory = construirFabrica();
 	
-	private static SessionFactory construirFabrica() {
+	private SessionFactory construirFabrica() {
 		try {
 		final StandardServiceRegistry registro = new StandardServiceRegistryBuilder().configure("/configuracao/hibernate.cf.xml").build();
 		
@@ -20,11 +20,11 @@ public class Conexao {
 		}
 	}
 	
-	public static SessionFactory getSessionFactory() {
+	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 	
-	public static void shutdown() {
+	public void shutdown() {
 		getSessionFactory().close();
 	}
 	

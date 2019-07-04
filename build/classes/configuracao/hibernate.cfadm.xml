@@ -23,5 +23,6 @@
 		<property name="format_sql">true</property>
 		<mapping class="modelo.Movimentacao"/>
 		<mapping class="modelo.TipoMovimentacao"/>
+		<mapping class="modelo.Usuario"/>		
 	</session-factory>
 </hibernate-configuration>

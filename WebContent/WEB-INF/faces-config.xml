@@ -11,6 +11,12 @@
      <converter-class>managedBean.TipoMovimentacaoConverter</converter-class>
 	</converter>
     
+    <converter>
+     <description>Configurando converter Usuario</description>
+     <converter-id>usuarioConverter</converter-id>
+     <converter-class>managedBean.UsuarioConverter</converter-class>
+	</converter>
+    
     <managed-bean>
 	  <managed-bean-name>movimentacaoBean</managed-bean-name>
 	  <managed-bean-class>managedBean.MovimentacaoBean</managed-bean-class>
@@ -24,6 +30,11 @@
     <managed-bean>
 	  <managed-bean-name>usuarioBean</managed-bean-name>
 	  <managed-bean-class>managedBean.UsuarioBean</managed-bean-class>
+	  <managed-bean-scope>request</managed-bean-scope>	  
+	</managed-bean>
+	<managed-bean>
+	  <managed-bean-name>adminBean</managed-bean-name>
+	  <managed-bean-class>managedBean.AdminBean</managed-bean-class>
 	  <managed-bean-scope>request</managed-bean-scope>	  
 	</managed-bean>
 

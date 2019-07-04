@@ -7,13 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import conexao.Conexao;
+import managedBean.Sessao;
 import modelo.Usuario;
 	  
 	public class UsuarioDAO {
 		private Usuario u;
-		private Session sessao = Conexao.getSessionFactory().openSession();
+		private Conexao conexao = new Conexao();
+		private Session sessao = conexao.getSessionFactory().openSession();
 		
-	 
 	public Usuario buscarLogin(String login, String senha) {
 		try {
 	    	Query<Usuario> q = sessao.createQuery("from Usuario where login = :login AND senha = :senha");
@@ -56,20 +57,20 @@ import modelo.Usuario;
 	    }
 	  
 	  public List<Usuario> pegarTodos(){
-			Session sessao = Conexao.getSessionFactory().openSession();
+			Session sessao = conexao.getSessionFactory().openSession();
 			Query<Usuario> query = sessao.createQuery("FROM Usuario");
 			return query.list();
 		}
 		
 		public Usuario pegarPorIdNamed(int id){
-			Session sessao = Conexao.getSessionFactory().openSession();
+			Session sessao = conexao.getSessionFactory().openSession();
 			Query<Usuario> query = sessao.getNamedQuery("pegarPorId").setParameter("id", id);
 			query.setParameter("id", id);
 			return query.uniqueResult();
 		}
 		
 		public List<Usuario> pegarTodosCriteria(){
-			Session sessao = Conexao.getSessionFactory().openSession();
+			Session sessao = conexao.getSessionFactory().openSession();
 			Criteria crit = sessao.createCriteria(Usuario.class);
 			return crit.list();
 		}

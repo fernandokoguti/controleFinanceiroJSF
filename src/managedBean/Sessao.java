@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
 import DAO.UsuarioDAO;
 import conexao.Conexao;
@@ -17,6 +18,8 @@ import modelo.Usuario;
 public class Sessao {
 	// Variável estática que conterá a instancia da classe
 	private static Sessao instance;
+	private Conexao conexao = new Conexao();
+	private Session sessao = conexao.getSessionFactory().openSession();
 	private static Usuario usuarioLogado;
 	private String login;
 	private String senha;
@@ -74,15 +77,13 @@ public class Sessao {
 			// sessao.getTransaction().rollback();
 			new Exception("Não possível retornar resultado " + e);
 		} finally {
-			Conexao.shutdown();
+			conexao.shutdown();
 		}
 		return retorno;
 	}
 
 	public String logoff() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.invalidate();
+		sessao.close();
 		return "/login?faces-redirect=true";
 	}
 

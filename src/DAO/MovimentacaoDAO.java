@@ -17,11 +17,12 @@ import modelo.Movimentacao;
 		private Movimentacao m;
 		private List<Movimentacao> movimentacoes;
 		private Sessao session = new Sessao();
-		private Session sessao = ConexaoUsuario.getSessionFactory(session.getUsuarioLogado().getNomeBase()).openSession();;
+		private ConexaoUsuario conexao = new ConexaoUsuario();
+		private Session sessao = conexao.getSessionFactory(session.getUsuarioLogado().getNomeBase()).openSession();;
 
 	public List<Movimentacao> buscarTodas() {
 		try {
-	    	Query<Movimentacao> q = sessao.createQuery("from Movimentacao");
+	    	Query<Movimentacao> q = sessao.createQuery("from Movimentacao m order by m.ano desc");
 	    	return q.list();
 			} catch (Exception e) {
 				return null;

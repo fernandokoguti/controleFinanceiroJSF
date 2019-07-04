@@ -16,8 +16,9 @@ import modelo.TipoMovimentacao;
 public class TipoMovimentacaoDAO {
 			private TipoMovimentacao tm;
 			private List<TipoMovimentacao> tipos;
-			private Sessao session = new Sessao(); 
-			private Session sessao = ConexaoUsuario.getSessionFactory(session.getUsuarioLogado().getNomeBase()).openSession();
+			private Sessao session = new Sessao();
+			private ConexaoUsuario conexao = new ConexaoUsuario();
+			private Session sessao = conexao.getSessionFactory(session.getUsuarioLogado().getNomeBase()).openSession();
 
 		public List<TipoMovimentacao> buscarTodas() {
 			try {

@@ -1,57 +1,80 @@
 package managedBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
+import javax.faces.bean.SessionScoped;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import DAO.MovimentacaoDAO;
 import conexao.ConexaoUsuario;
 import modelo.Movimentacao;
 import modelo.Usuario;
 
 @ManagedBean(name = "adminBean")
-@RequestScoped
+@SessionScoped
 public class AdminBean {
-	// private Session sessionAdmUsuario =
-	// Conexao.getSessionFactory().openSession();
-	// private UsuarioDAO udao = new UsuarioDAO();
-	private MovimentacaoDAO mdao = new MovimentacaoDAO();
-	private List<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
-	private List<Movimentacao> movimentacoesAdm = new ArrayList<Movimentacao>();
-
-	@PersistenceContext
-	private EntityManagerFactory emf;
-
-	public List<Movimentacao> pegarTodos() {
+	private Usuario usuario = new Usuario(1);
+	private boolean painel = false;
+	private ConexaoUsuario conexao = new ConexaoUsuario();
+	
+	public List<Usuario> pegarTodosUsuarios() {
 		System.out.println("buscou usuário");
+		List<Usuario> users = null;
 		try {
-			EntityManager em = emf.createEntityManager();
-			Query<Usuario> qUser = (Query<Usuario>) em.createQuery("from Usuario");
-			List<Usuario> users = qUser.getResultList();
-			System.out.println(qUser+"###"+qUser.getResultList());
-		 //List<Usuario> users = udao.buscarTodos();
-			for (Usuario usuario : users) {
-				String base = usuario.getNomeBase();
-				Session sessionAdm = ConexaoUsuario.getSessionFactory(base).openSession();
-				Query<Movimentacao> q = sessionAdm.createQuery("from Movimentacao");
-				movimentacoes = q.getResultList();
-				for (Movimentacao movimentacao : movimentacoes) {
-					movimentacoesAdm.add(movimentacao);
-				}
-				ConexaoUsuario.getSessionFactory(base).close();
-			}
-			return movimentacoesAdm;
+			String base = "cf";
+			Session sessionAdm = conexao.getSessionFactory(base).openSession();
+			Query<Usuario> q = sessionAdm.createQuery("from Usuario");
+			users = q.getResultList();
 		} catch (Exception e) {
-			System.out.println("PAuleou " + e);// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Pauleou valendo no usuario: "+e.getStackTrace());// TODO: handle exception
 		}
-		return null;
+		return users;
 	}
+	
+	public void listar(String id) {
+		List<Usuario> users = pegarTodosUsuarios();
+		for (Usuario u : users) {
+			if(u.getId() == Integer.parseInt(id))
+				System.out.println("Setou usuario = "+ u.getNome());
+				usuario = u;
+				painel = true;
+		}
+	}
+	
+	public List<Movimentacao> pegarMovimentacoes() {
+	System.out.println(usuario.getNome()+" ### entrou pegarMovimentacoes");
+	List<Movimentacao> movimentacoes = null;
+	try {
+		String base = usuario.getNomeBase();
+		Session sessionAdm = conexao.getSessionFactory(base).openSession();
+		Query<Movimentacao> q = sessionAdm.createQuery("from Movimentacao");
+			movimentacoes = q.getResultList();
+			return movimentacoes;
+	}catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		System.out.println("Pauleou valendo no movimentacoes: "+e.getStackTrace());// TODO: handle exception
+	}
+	return movimentacoes;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public boolean isPainel() {
+		return painel;
+	}
+
+	public void setPainel(boolean painel) {
+		this.painel = painel;
+	}
+	
 }

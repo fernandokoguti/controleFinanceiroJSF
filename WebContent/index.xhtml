@@ -9,8 +9,9 @@
 	<h2>
 		Bem vindo
 		<h:outputText value="#{usuario.nome}" />
+		
 		<p:commandButton value="Sair"
-				actionListener="sessao.logoff()" type="button" />
+				action="#{sessao.logoff()}"/>
 		<h:outputText value="#{usuario.nomeBase}" />
 	</h2>
 	<h:form id="form">

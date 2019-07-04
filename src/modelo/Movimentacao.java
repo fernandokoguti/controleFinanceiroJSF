@@ -115,8 +115,8 @@ public class Movimentacao {
 		return meses;
 	}
 	
-    public String nomeUsuario() {
-    	String nome = Sessao.getInstance().getUsuarioLogado().getNome();
+    public String nomeUsuario(String u) {
+    	String nome = u;//Sessao.getInstance().getUsuarioLogado().getNome();
     	return nome;
     }
 	
